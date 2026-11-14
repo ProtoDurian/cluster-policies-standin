@@ -1,0 +1,18 @@
+# expect: fail require-lpsm-labels
+# Pod owned by ReplicaSet alloy-operator-7d9f but pod-template-hash abcd
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alloy-operator-7d9f-x2
+  labels:
+    pod-template-hash: abcd
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: alloy-operator-7d9f
+      uid: 00000000-0000-0000-0000-000000000001
+      controller: true
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36

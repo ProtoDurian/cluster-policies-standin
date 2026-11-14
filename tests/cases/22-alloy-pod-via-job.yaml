@@ -1,0 +1,16 @@
+# expect: pass
+# Pod owned by Job alloy-operator-crds, no labels
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alloy-operator-crds-x1
+  ownerReferences:
+    - apiVersion: batch/v1
+      kind: Job
+      name: alloy-operator-crds
+      uid: 00000000-0000-0000-0000-000000000001
+      controller: true
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36

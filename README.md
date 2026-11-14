@@ -11,7 +11,8 @@ Pinned by commit from template repos. Swap = change address + commit.
   - `reload-label-required`: every pod template carries `<labelPrefix>/reload: live` or `restart`.
   - `reload-live-inputs`: a `live` pod reads no ConfigMap or Secret through `env`, `envFrom` or a `subPath` file,
     unless the pod annotation `<labelPrefix>/restart-configs` lists it.
-  - Exempt: Helm test hooks, and the named Alloy operator objects in `values.yaml` (`alloyOperator`).
+  - Exempt: Helm test hooks, and the named Alloy operator objects in `values.yaml` (`alloyOperator`)
+    plus the ReplicaSets and Pods they own (matched through `ownerReferences` and `pod-template-hash`).
   - Bindings leave out the system namespaces (`exemptNamespaces`).
 - `values.yaml` `labelPrefix` defaults to `durian.cloud` so the chart renders on its own.
   Template repos set it from their root chart (`scripts/local/helm-check.sh`).

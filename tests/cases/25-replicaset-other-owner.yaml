@@ -1,0 +1,24 @@
+# expect: fail require-lpsm-labels
+# ReplicaSet owned by Deployment other, no labels
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: other-7d9f
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: other
+      uid: 00000000-0000-0000-0000-000000000001
+      controller: true
+spec:
+  selector:
+    matchLabels:
+      app: other
+  template:
+    metadata:
+      labels:
+        app: other
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.36
