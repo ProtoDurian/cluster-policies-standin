@@ -7,7 +7,7 @@ Pinned by commit from template repos. Swap = change address + commit.
 
 - `chart/`: the policy chart `cluster-policies`.
   - `require-lpsm-labels`: every workload and its pod template carry the four LPSM labels
-    (`<labelPrefix>/landscape`, `platform`, `service`, `module`).
+    (`<labelPrefix>/landscape`, `platform`, `service`, `module`). A CronJob's `jobTemplate.metadata` carries them too.
   - `reload-label-required`: every pod template carries `<labelPrefix>/reload: live` or `restart`.
   - `reload-live-inputs`: a `live` pod reads no ConfigMap or Secret through `env`, `envFrom` or a `subPath` file,
     unless the pod annotation `<labelPrefix>/restart-configs` lists it.

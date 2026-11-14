@@ -1,0 +1,33 @@
+# expect: fail reload-label-required
+# CronJob with LPSM labels everywhere but no reload label on the pod template
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cj
+  labels:
+    durian.cloud/landscape: lapras
+    durian.cloud/platform: diene
+    durian.cloud/service: demo
+    durian.cloud/module: api
+spec:
+  schedule: 0 * * * *
+  jobTemplate:
+    metadata:
+      labels:
+        durian.cloud/landscape: lapras
+        durian.cloud/platform: diene
+        durian.cloud/service: demo
+        durian.cloud/module: api
+    spec:
+      template:
+        metadata:
+          labels:
+            durian.cloud/landscape: lapras
+            durian.cloud/platform: diene
+            durian.cloud/service: demo
+            durian.cloud/module: api
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: app
+              image: busybox:1.36
