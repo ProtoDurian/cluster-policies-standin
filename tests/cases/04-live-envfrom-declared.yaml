@@ -1,0 +1,21 @@
+# expect: pass
+# live Pod taking a ConfigMap by envFrom, listed in restart-configs
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ld
+  labels:
+    durian.cloud/landscape: lapras
+    durian.cloud/platform: diene
+    durian.cloud/service: demo
+    durian.cloud/module: api
+    durian.cloud/reload: live
+  annotations:
+    durian.cloud/restart-configs: configmap/app-config
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36
+      envFrom:
+        - configMapRef:
+            name: app-config

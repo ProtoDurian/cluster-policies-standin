@@ -1,0 +1,5 @@
+# chart-checks: tests/run.sh checks every tests/cases manifest against this repo's own chart.
+kubernetes: '1.30' # core schemas ship in the nix-pinned kubectl-validate (1.23 to 1.30)
+policies:
+  - name: cluster-policies
+    path: chart

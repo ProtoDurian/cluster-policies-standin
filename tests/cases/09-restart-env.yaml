@@ -1,0 +1,22 @@
+# expect: pass
+# restart Pod reading a ConfigMap key into env
+apiVersion: v1
+kind: Pod
+metadata:
+  name: re
+  labels:
+    durian.cloud/landscape: lapras
+    durian.cloud/platform: diene
+    durian.cloud/service: demo
+    durian.cloud/module: api
+    durian.cloud/reload: restart
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36
+      env:
+        - name: MODE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: mode

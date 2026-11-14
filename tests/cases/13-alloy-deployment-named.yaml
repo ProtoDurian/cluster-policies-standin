@@ -1,0 +1,18 @@
+# expect: pass
+# the named Alloy operator Deployment, no labels (existing exemption)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alloy-operator
+spec:
+  selector:
+    matchLabels:
+      app: alloy
+  template:
+    metadata:
+      labels:
+        app: alloy
+    spec:
+      containers:
+        - name: app
+          image: busybox:1.36

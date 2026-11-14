@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  cases:
+    name: Policy cases
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: AtomiCloud/actions.setup-nix@v3
+        with:
+          namespacelabs: 'false'
+          github-slug: 'false'
+      - name: Run policy cases
+        run: nix develop -c ./tests/run.sh

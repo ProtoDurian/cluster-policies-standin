@@ -1,0 +1,16 @@
+# expect: fail reload-label-required
+# Pod with reload value sometimes
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bad
+  labels:
+    durian.cloud/landscape: lapras
+    durian.cloud/platform: diene
+    durian.cloud/service: demo
+    durian.cloud/module: api
+    durian.cloud/reload: sometimes
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36

@@ -1,0 +1,19 @@
+# expect: fail reload-live-inputs
+# live Pod taking a ConfigMap by envFrom
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lf
+  labels:
+    durian.cloud/landscape: lapras
+    durian.cloud/platform: diene
+    durian.cloud/service: demo
+    durian.cloud/module: api
+    durian.cloud/reload: live
+spec:
+  containers:
+    - name: app
+      image: busybox:1.36
+      envFrom:
+        - configMapRef:
+            name: app-config
