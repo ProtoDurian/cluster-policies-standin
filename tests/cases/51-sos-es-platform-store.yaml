@@ -1,0 +1,11 @@
+# expect: pass
+# a normal service ExternalSecret on the platform's own store is not touched by the guard
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: tin-env, namespace: nitroso }
+spec:
+  secretStoreRef: { kind: SecretStore, name: platform }
+  target: { name: tin-env }
+  data:
+    - secretKey: DB_PASSWORD
+      remoteRef: { key: /tin/DB_PASSWORD }

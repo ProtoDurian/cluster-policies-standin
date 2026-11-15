@@ -1,0 +1,10 @@
+# expect: fail sos-key-owner-externalsecret
+# search the whole store
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: find-all, namespace: nitroso }
+spec:
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: find-all }
+  dataFrom:
+    - find: { name: { regexp: ".*" } }

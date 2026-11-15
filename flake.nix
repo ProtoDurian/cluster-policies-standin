@@ -29,6 +29,16 @@
             pkgs.git
           ];
         };
+        # tests/live/run.sh: a kind cluster with the External Secrets Operator (docker comes from the host)
+        devShells.live = pkgs.mkShell {
+          buildInputs = [
+            pkgs.git
+            pkgs.kind
+            pkgs.kubectl
+            pkgs.kubernetes-helm
+            pkgs.yq-go
+          ];
+        };
       }
     );
 }

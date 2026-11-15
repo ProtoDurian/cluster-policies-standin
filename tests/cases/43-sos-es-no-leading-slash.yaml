@@ -1,0 +1,14 @@
+# expect: fail sos-key-owner-externalsecret
+# relative key (ESO Infisical joins it onto the store's folder)
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: relative-key
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: relative-key }
+  data:
+    - secretKey: token
+      remoteRef: { key: "nitroso/access/token" }

@@ -1,0 +1,14 @@
+# expect: fail sos-key-owner-externalsecret
+# renamed key format
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: renamed
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: renamed }
+  data:
+    - secretKey: token
+      remoteRef: { key: "/platforms/nitroso/access/token" }

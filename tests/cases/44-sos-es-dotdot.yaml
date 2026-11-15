@@ -1,0 +1,14 @@
+# expect: fail sos-key-owner-externalsecret
+# path climb out of the own folder
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: dotdot
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: dotdot }
+  data:
+    - secretKey: token
+      remoteRef: { key: "/nitroso/access/../../pichu/access/token" }

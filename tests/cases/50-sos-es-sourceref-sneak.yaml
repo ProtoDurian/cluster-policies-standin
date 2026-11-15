@@ -1,0 +1,13 @@
+# expect: fail sos-key-owner-externalsecret
+# top-level store is the platform store; one item sneaks to the cluster store via sourceRef
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: sneak, namespace: nitroso }
+spec:
+  secretStoreRef: { kind: SecretStore, name: platform }
+  target: { name: sneak }
+  data:
+    - secretKey: token
+      remoteRef: { key: /pichu/access/token }
+      sourceRef:
+        storeRef: { kind: ClusterSecretStore, name: infisical }

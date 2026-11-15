@@ -1,0 +1,14 @@
+# expect: fail sos-key-owner-externalsecret
+# bare name (ESO Infisical reads it from the store's default folder)
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: bare
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: bare }
+  data:
+    - secretKey: token
+      remoteRef: { key: "token" }

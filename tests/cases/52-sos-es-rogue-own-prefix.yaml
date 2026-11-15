@@ -1,0 +1,14 @@
+# expect: pass
+# a namespace that is not a platform, reading under its own name: this policy admits it; the store's ESO namespace list refuses it (cluster-only, see tests/live)
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: rogue-token
+  namespace: rogue
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: rogue-token }
+  data:
+    - secretKey: token
+      remoteRef: { key: "/rogue/access/token" }

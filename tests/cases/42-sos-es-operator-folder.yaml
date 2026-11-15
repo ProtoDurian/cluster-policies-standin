@@ -1,0 +1,14 @@
+# expect: fail sos-key-owner-externalsecret
+# nitroso asks for its operator-only folder
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: steal-ops
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: steal-ops }
+  data:
+    - secretKey: token
+      remoteRef: { key: "/nitroso/ops/master" }

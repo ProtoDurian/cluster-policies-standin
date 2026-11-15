@@ -1,0 +1,18 @@
+# expect: fail sos-key-owner-clusterexternalsecret
+# pichu's key copied into namespace nitroso
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata:
+  name: sos-pichu-into-nitroso
+spec:
+  namespaceSelectors:
+    - matchLabels: { kubernetes.io/metadata.name: nitroso }
+  refreshTime: 10s
+  externalSecretName: sos-token
+  externalSecretSpec:
+    refreshInterval: 10s
+    secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+    target: { name: platform-store-cred }
+    data:
+      - secretKey: token
+        remoteRef: { key: "/pichu/access/token" }
