@@ -1,0 +1,13 @@
+# A namespaced store in nitroso that tries to use the credential Secret in namespace pichu.
+apiVersion: external-secrets.io/v1
+kind: SecretStore
+metadata: { name: platform-x, namespace: nitroso }
+spec:
+  provider:
+    infisical:
+      hostAPI: http://infisical.invalid
+      auth:
+        universalAuthCredentials:
+          clientId: { name: platform-store-cred, key: token, namespace: pichu }
+          clientSecret: { name: platform-store-cred, key: token, namespace: pichu }
+      secretsScope: { projectSlug: pichu, environmentSlug: pikachu, secretsPath: / }

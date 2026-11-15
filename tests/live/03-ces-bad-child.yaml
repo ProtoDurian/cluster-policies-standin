@@ -1,0 +1,17 @@
+# Applied with only the ExternalSecret guard bound: a ClusterExternalSecret that copies pichu's
+# token into nitroso. Admission lets the CES in; the ESO controller's child ExternalSecret must be refused.
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata: { name: sos-bad-child }
+spec:
+  namespaceSelectors:
+    - matchLabels: { kubernetes.io/metadata.name: nitroso }
+  refreshTime: 10s
+  externalSecretName: bad-child
+  externalSecretSpec:
+    refreshInterval: 10s
+    secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+    target: { name: bad-child }
+    data:
+      - secretKey: token
+        remoteRef: { key: /pichu/access/token }

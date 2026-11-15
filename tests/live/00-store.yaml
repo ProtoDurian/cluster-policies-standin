@@ -1,0 +1,39 @@
+# Platform namespaces (name = platform) and one non-platform namespace.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nitroso
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pichu
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rogue
+---
+# The one cluster store per cluster (cobalt's `infisical`). The fake provider stands in for the
+# secret-of-secrets project, environment pikachu: it holds keys for two platforms
+# plus one operator-only value. In the real thing this store's Infisical identity can
+# read every platform's /<platform>/access folder in env pikachu.
+#
+# Second guard (ESO's own): conditions.namespaces lets only the listed platform
+# namespaces use this store at all. It cannot say WHICH keys each one may read.
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: infisical
+spec:
+  conditions:
+    - namespaces: [nitroso, pichu]
+  provider:
+    fake:
+      data:
+        - key: /nitroso/access/token
+          value: nitroso-token-v1
+        - key: /pichu/access/token
+          value: pichu-token-v1
+        - key: /nitroso/ops/master
+          value: nitroso-operator-only

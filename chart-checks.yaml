@@ -3,3 +3,8 @@ kubernetes: '1.30' # core schemas ship in the nix-pinned kubectl-validate (1.23 
 policies:
   - name: cluster-policies
     path: chart
+crds:
+  # External Secrets Operator CRDs, for the sos-key-owner-* cases (ExternalSecret, ClusterExternalSecret).
+  - name: external-secrets
+    url: https://raw.githubusercontent.com/external-secrets/external-secrets/v2.15.0/deploy/crds/bundle.yaml
+    sha256: cbde8a1443d958c8a8c3fa76db1a72182440311ba0a3c40d2e07dcb5e78ce1f7

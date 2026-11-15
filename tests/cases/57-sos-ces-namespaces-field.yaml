@@ -1,0 +1,17 @@
+# expect: fail sos-key-owner-clusterexternalsecret
+# old namespaces list field
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata:
+  name: sos-by-list
+spec:
+  namespaces: [nitroso]
+  refreshTime: 10s
+  externalSecretName: sos-token
+  externalSecretSpec:
+    refreshInterval: 10s
+    secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+    target: { name: platform-store-cred }
+    data:
+      - secretKey: token
+        remoteRef: { key: "/nitroso/access/token" }

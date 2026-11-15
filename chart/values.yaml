@@ -12,3 +12,12 @@ alloyOperator:
     name: alloy-operator
   - kind: Job
     name: alloy-operator-crds
+
+# Secrets guard (sos-key-owner-*): the one ClusterSecretStore per cluster that can read every platform's
+# folder in the secret-of-secrets project, and the folder each platform may read through it. A platform
+# (= its namespace name) may only read /<platform>/<folder>/<NAME>, with NAME matching namePattern.
+sosStore:
+  name: infisical
+  folder: access
+  # One key name below the folder: a regex without quotes, backslashes or slashes.
+  namePattern: '[A-Za-z0-9_-]+'

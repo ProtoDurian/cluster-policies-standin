@@ -1,0 +1,11 @@
+# Applied before the policy: a non-platform namespace asks the cluster store for nitroso's token.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: rogue-steal, namespace: rogue }
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: rogue-steal }
+  data:
+    - secretKey: token
+      remoteRef: { key: /nitroso/access/token }

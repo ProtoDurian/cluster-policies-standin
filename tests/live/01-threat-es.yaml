@@ -1,0 +1,11 @@
+# Applied before the policy: a namespaced ExternalSecret in nitroso asks the cluster store for pichu's token.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: threat, namespace: nitroso }
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: threat }
+  data:
+    - secretKey: token
+      remoteRef: { key: /pichu/access/token }

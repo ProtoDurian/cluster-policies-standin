@@ -1,0 +1,19 @@
+# expect: fail sos-key-owner-clusterexternalsecret
+# two namespaces at once
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata:
+  name: sos-two
+spec:
+  namespaceSelectors:
+    - matchLabels: { kubernetes.io/metadata.name: nitroso }
+    - matchLabels: { kubernetes.io/metadata.name: pichu }
+  refreshTime: 10s
+  externalSecretName: sos-token
+  externalSecretSpec:
+    refreshInterval: 10s
+    secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+    target: { name: platform-store-cred }
+    data:
+      - secretKey: token
+        remoteRef: { key: "/nitroso/access/token" }

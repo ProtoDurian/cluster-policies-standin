@@ -1,0 +1,18 @@
+# expect: fail sos-key-owner-clusterexternalsecret
+# selects namespaces by a label anyone with namespace edit can set
+apiVersion: external-secrets.io/v1
+kind: ClusterExternalSecret
+metadata:
+  name: sos-by-label
+spec:
+  namespaceSelectors:
+    - matchLabels: { team: nitroso }
+  refreshTime: 10s
+  externalSecretName: sos-token
+  externalSecretSpec:
+    refreshInterval: 10s
+    secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+    target: { name: platform-store-cred }
+    data:
+      - secretKey: token
+        remoteRef: { key: "/nitroso/access/token" }

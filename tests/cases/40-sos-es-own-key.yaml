@@ -1,0 +1,14 @@
+# expect: pass
+# nitroso reads its own token
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: own-token
+  namespace: nitroso
+spec:
+  refreshInterval: 10s
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: own-token }
+  data:
+    - secretKey: token
+      remoteRef: { key: "/nitroso/access/token" }

@@ -1,0 +1,10 @@
+# expect: fail sos-key-owner-externalsecret
+# dataFrom.extract of pichu's key
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata: { name: extract-pichu, namespace: nitroso }
+spec:
+  secretStoreRef: { kind: ClusterSecretStore, name: infisical }
+  target: { name: extract-pichu }
+  dataFrom:
+    - extract: { key: /pichu/access/token }
